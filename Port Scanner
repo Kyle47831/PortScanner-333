@@ -1,0 +1,35 @@
+# Import Modules
+ 
+import socket
+import time
+# Set up variables
+Alpha = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ 
+# Define Target
+target = input('What is the target of this scan?: ')
+ 
+# Start Scan
+target_ip = socket.gethostbyname(target)
+print('Starting scan on host:', target_ip)
+ 
+# function for scanning ports
+  
+def port_scan(port):
+    try:
+        Alpha.connect((target_ip, port))
+        return True
+    except:
+        return False
+ 
+ 
+start = time.time()
+ 
+# here we are scanning port 100 to 200
+for port in range(100, 200):
+    if port_scan(port):
+        print(f'port {port} is open')
+    else:
+        print (f'port {port} is closed')
+
+end = time.time()
+print(f'Time taken {end-start:.2f} seconds')
